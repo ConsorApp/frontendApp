@@ -1,39 +1,88 @@
+// "use client";
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+
+
+
+// const navItems = [
+//   { label: "Dashboard", href: "/" },
+//   { label: "Consorcios", href: "/consorcios" },
+//   { label: "Proveedores", href: "/proveedores" },
+// ];
+
+// export default function Sidebar() {
+//   const pathname = usePathname();
+
+//   return (
+//     <aside className="w-64 bg-slate-900 text-white min-h-screen p-4">
+//       <h1 className="text-xl font-bold mb-6">
+//         Consorcios
+//       </h1>
+
+//       <nav className="flex flex-col gap-2">
+//         {navItems.map((item) => {
+//           const isActive = pathname === item.href;
+
+//           return (
+//             <Link
+//               key={item.href}
+//               href={item.href}
+//               className={`rounded px-3 py-2 transition
+//                 ${
+//                   isActive
+//                     ? "bg-black text-white"
+//                     : "text-gray-600 hover:bg-gray-100"
+//                 }`}
+//             >
+//               {item.label}
+//             </Link>
+//           );
+//         })}
+//       </nav>
+//     </aside>
+//   );
+// }
+
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-
+import { LayoutDashboard, Building2, Truck } from "lucide-react";
 
 const navItems = [
-  { label: "Dashboard", href: "/" },
-  { label: "Consorcios", href: "/consorcios" },
-  { label: "Proveedores", href: "/proveedores" },
+  { label: "Dashboard", href: "/", icon: LayoutDashboard },
+  { label: "Consorcios", href: "/consorcios", icon: Building2 },
+  { label: "Proveedores", href: "/proveedores", icon: Truck },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-slate-900 text-white min-h-screen p-4">
-      <h1 className="text-xl font-bold mb-6">
+    <aside className="w-64 border-r bg-background p-4">
+      <h1 className="mb-6 text-xl font-semibold tracking-tight">
         Consorcios
       </h1>
 
-      <nav className="flex flex-col gap-2">
+      <nav className="flex flex-col gap-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          const Icon = item.icon;
 
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded px-3 py-2 transition
+              className={`
+                flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors
                 ${
                   isActive
-                    ? "bg-black text-white"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }
+              `}
             >
+              <Icon className="h-4 w-4" />
               {item.label}
             </Link>
           );
