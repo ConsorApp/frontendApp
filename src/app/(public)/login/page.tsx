@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const { loginAsAdmin, loginAsResident } = useAuth();
@@ -9,7 +10,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center gap-6">
-      <button
+      <Button
         className="rounded bg-black px-6 py-3 text-white"
         onClick={() => {
           loginAsAdmin();
@@ -17,9 +18,9 @@ export default function LoginPage() {
         }}
       >
         Entrar como Admin
-      </button>
+      </Button>
 
-      <button
+      <Button
         className="rounded bg-slate-700 px-6 py-3 text-white"
         onClick={() => {
           loginAsResident();
@@ -27,7 +28,7 @@ export default function LoginPage() {
         }}
       >
         Entrar como Residente
-      </button>
+      </Button>
     </div>
   );
 }
