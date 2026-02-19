@@ -1,16 +1,39 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import { getAvailableContexts } from "@/lib/auth/getAvailableContexts";
+import { isValidActiveContext } from "@/lib/auth/isValidActiveContext";
 
-export default function HomePage() {
-  const { user } = useAuth();
+export default function Home() {
+  const { user, activeContext, changeActiveContext, isAuthLoading } = useAuth();
+  const router = useRouter();
 
-  // if (isLoading) return null;
+  useEffect(() => {
+    if (isAuthLoading) return;
+    if (!user) {
+      router.push("/login");
+      return;
+    }
 
-  if (!user) {
-    redirect("/login");
-  }
+    const contexts = getAvailableContexts(user);
+    if (contexts.length === 1) {
+      changeActiveContext(contexts[0]);
+      router.push("/building/"+contexts[0].buildingId);
+      return;
+    }
 
-  redirect("/dashboard");
+    if (
+      activeContext &&
+      isValidActiveContext(activeContext, contexts)
+    ) {
+      router.push("/dashboard");
+      return;
+    }
+
+    router.push("/select-context");
+  }, [user]);
+
+  return null;
 }

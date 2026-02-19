@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,7 @@ export default function LoginPage() {
         className="rounded bg-black px-6 py-3 text-white"
         onClick={() => {
           loginAsAdmin();
-          router.push("/select-building");
+          router.push("/");
         }}
       >
         Entrar como Admin
@@ -24,7 +24,7 @@ export default function LoginPage() {
         className="rounded bg-slate-700 px-6 py-3 text-white"
         onClick={() => {
           loginAsResident();
-          router.push("/building/C");
+          router.push("/");
         }}
       >
         Entrar como Residente
